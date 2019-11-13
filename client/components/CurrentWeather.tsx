@@ -1,15 +1,15 @@
 import * as React from 'react';
-import Axios from 'axios';
 import { Weather } from '../../server/types/weather';
 import { CircularProgress } from '@material-ui/core';
 import { SingleWeather } from './weather';
+import { getCurrentWeather } from '../constants/service';
 
 type Props = {
     city: string,
 }
 
 type State = {
-    loadingWeather: boolean,
+    loading: boolean,
     errorMessage: string,
     weather : Weather,
 }
@@ -18,36 +18,50 @@ export default class WeatherComponent extends React.Component<Props, State>{
     constructor(props: Props){
         super(props)
         this.state = {
-            loadingWeather: true,
+            loading: true,
             errorMessage: '',
             weather : null,
         }
     }
-    componentDidMount(){
-        Axios.get(`/v1/current/${this.props.city}`)
+    getCurrentWeather(city: string){
+        getCurrentWeather(city)
         .then((response)=>{
             this.setState({
                 weather: response.data,
-                loadingWeather: false,
+                loading: false,
             })
         })
         .catch((error)=>{
             this.setState({
                 errorMessage: "Weather not available",
-                loadingWeather: false,
+                loading: false,
             })
         })
     }
+
+    componentDidMount(){
+        if(this.props.city)
+            this.getCurrentWeather(this.props.city);
+    }
+
+    componentDidUpdate(nextProps: Props){
+        const { city } = this.props
+        
+        if (nextProps.city !== city) {
+            this.setState({
+                loading: true,
+            })
+            this.getCurrentWeather(nextProps.city);
+        }
+    }
     render(){
-        const weather = this.state.weather;
+        const {weather, loading} = this.state;
         return<React.Fragment>
-            {
-                weather ? 
-                    <SingleWeather item={weather.weather[0]} main={weather.main}/>
+            {!loading ? 
+                <SingleWeather item={weather.weather[0]} main={weather.main}/>
                 :
-                    <CircularProgress/>
+                <CircularProgress/>
             }
-            
         </React.Fragment>
     }
 }

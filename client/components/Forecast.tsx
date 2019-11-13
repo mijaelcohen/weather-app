@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Forecast, ForecastItem } from '../../server/types/weather';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import { SingleWeather } from './weather';
 import { getForecast } from '../constants/service';
 
@@ -72,16 +72,22 @@ export default class ForecastComponent extends React.Component<Props, State>{
             <h2>Forecast</h2>
             {
                 !loading ? 
-                <div className="forecast">
+                <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="flex-start"
+                spacing={5}
+                >
                    {forecastByDay.map(item=>{
                        return (
-                       <React.Fragment key={item.dt}>
+                       <Grid xs={4} item key={item.dt}>
                             {this.getFormatedDate(item.dt_txt)}
                             <SingleWeather main={item.main} item={item.weather[0]}/>
-                       </React.Fragment>
+                       </Grid>
                        )
                    })}
-                </div>
+                </Grid>
                 :
                 <CircularProgress/>
             }

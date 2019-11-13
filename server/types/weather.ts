@@ -4,20 +4,21 @@ export type Forecast = {
 
 type ForecastItem = {
     dt: number
-    main:{
-        temp:number,
-        temp_min:number,
-        temp_max:number,
-        pressure:number,
-        sea_level:number,
-        grnd_level:number,
-        humidity:number,
-        temp_kf:number 
-    },
+    main : MainWeatherInfo 
     weather: WeatherItem[],
     wind:{speed:number,deg:number},
+    dt_txt: string,
 };
-
+export type MainWeatherInfo = {
+    temp:number,
+    temp_min:number,
+    temp_max:number,
+    pressure:number,
+    sea_level:number,
+    grnd_level:number,
+    humidity:number,
+    temp_kf:number 
+}
 export type WeatherItem = {
     id: number,
     main: string,
@@ -26,13 +27,7 @@ export type WeatherItem = {
 }
 // Maping only needed data
 export type Weather = {
-    main: {
-      temp: number
-      pressure: number,
-      humidity: number,
-      temp_min: number,
-      temp_max: number
-    },
+    main: MainWeatherInfo
     weather: WeatherItem[],
     wind: {
       speed: number,

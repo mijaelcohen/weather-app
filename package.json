@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run dev",
     "prod": "webpack --mode production && ts-node server/server.ts",
-    "dev": "webpack --mode development && nodemon server/server.ts",
+    "dev": "nodemon server/server.ts & webpack-cli -w --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

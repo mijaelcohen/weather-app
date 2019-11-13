@@ -15,6 +15,6 @@ export default class CurrentCity extends React.Component<Props>{
       return <React.Fragment>
             <WeatherComponent  city={this.props.city}/>
             <ForecastComponent city={this.props.city}/>
-      </React.Fragment>  
+        </React.Fragment>  
     }
 }

@@ -38,16 +38,24 @@ export default class ForecastComponent extends React.Component<Props, State>{
             })
         })
     }
+    getFormatedDate(d: string){
+        const date = new Date(d);
+        return date
+    }
     render(){
-        const iconURL = "http://openweathermap.org/img/wn/";
         const forecast = this.state.forecast;
         return<React.Fragment>
+            <h2>Forecast</h2>
             {
                 forecast ? 
                 <div className="forecast">
                    {forecast.list.map(item=>{
-                       <SingleWeather weather={item.weather}/>
-                       
+                       return (
+                       <React.Fragment key={item.dt}>
+                            {(item.dt_txt)}
+                            <SingleWeather main={item.main} item={item.weather[0]}/>
+                       </React.Fragment>
+                       )
                    })}
                 </div>
                 :

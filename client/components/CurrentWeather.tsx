@@ -39,12 +39,13 @@ export default class WeatherComponent extends React.Component<Props, State>{
         })
     }
     render(){
+        const weather = this.state.weather;
         return<React.Fragment>
             {
-                this.state.weather ? 
-                <SingleWeather weather={this.state.weather}/>
+                weather ? 
+                    <SingleWeather item={weather.weather[0]} main={weather.main}/>
                 :
-                <CircularProgress/>
+                    <CircularProgress/>
             }
             
         </React.Fragment>

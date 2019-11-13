@@ -3,9 +3,14 @@ import * as ReactDOM from 'react-dom';
 import Axios from 'axios';
 import { cities } from './constants/cities';
 import CurrentCity from './components/CurrentCity';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import CircularProgress from '@material-ui/core/CircularProgress';
+
+import {Select, 
+  MenuItem,
+  CircularProgress,
+  CssBaseline,
+  Fade,
+  Container,
+  Typography} from '@material-ui/core';
 
 type State = {
   city: string,
@@ -47,24 +52,29 @@ class App extends React.Component <any, State>{
   render() {
       const {city, userCity, loading } = this.state;
       return (
-        <div>
-          <h1> Select a city to see weather </h1>
-          {loading ? 
-            <CircularProgress />
-            :
-            <div>
-              <Select value={city} onChange={(e: any)=>{this.changeCity(e)}}>
-                <MenuItem value={userCity}>{userCity}</MenuItem>
-                {cities.map((option) =>
-                  <MenuItem key={option} value={option}>{option}</MenuItem>
-                )}
-              </Select>
-              <CurrentCity city={city} />
-            </div>
-            
-          }
-          
-        </div>
+        <React.Fragment>
+          <CssBaseline/>
+            <Container>
+            <Typography variant="h4"> Select a city to see the weather </Typography>
+            {loading ? 
+              <CircularProgress />
+              :
+              <Fade>
+              <React.Fragment>
+                <Select value={city} onChange={(e: any)=>{this.changeCity(e)}}>
+                  <MenuItem value={userCity}>{userCity}</MenuItem>
+                  {cities.map((option) =>
+                    <MenuItem key={option} value={option}>{option}</MenuItem>
+                  )}
+                </Select>
+                
+                <CurrentCity city={city} />
+                
+              </React.Fragment>
+              </Fade>
+            }
+          </Container>
+        </React.Fragment>
       );
     }
   }

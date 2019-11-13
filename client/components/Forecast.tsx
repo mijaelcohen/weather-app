@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Forecast } from '../../server/types/weather';
+import { Forecast, ForecastItem } from '../../server/types/weather';
 import { CircularProgress } from '@material-ui/core';
 import { SingleWeather } from './weather';
 import { getForecast } from '../constants/service';
@@ -54,17 +54,26 @@ export default class ForecastComponent extends React.Component<Props, State>{
         const date = new Date(d);
         return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
     }
-    filterForecast(forecast: Forecast){
-        
+    filterForecast(forecast: Forecast) : ForecastItem[] | null{
+        // not my proudest method
+        if(forecast){
+            return  forecast.list.filter((item)=>{
+                return item.dt_txt.substr(item.dt_txt.length - 8) === "00:00:00"; 
+            })
+        }else{
+            return null;
+        }
     }
     render(){
         const {forecast, loading} = this.state;
+        const forecastByDay = this.filterForecast(forecast)
+
         return<React.Fragment>
             <h2>Forecast</h2>
             {
                 !loading ? 
                 <div className="forecast">
-                   {forecast.list.map(item=>{
+                   {forecastByDay.map(item=>{
                        return (
                        <React.Fragment key={item.dt}>
                             {this.getFormatedDate(item.dt_txt)}

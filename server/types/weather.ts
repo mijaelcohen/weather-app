@@ -2,7 +2,7 @@ export type Forecast = {
     list:ForecastItem[]
 }
 
-type ForecastItem = {
+export type ForecastItem = {
     dt: number
     main : MainWeatherInfo 
     weather: WeatherItem[],

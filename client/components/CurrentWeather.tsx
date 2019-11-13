@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Weather } from '../../server/types/weather';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Grid } from '@material-ui/core';
 import { SingleWeather } from './weather';
 import { getCurrentWeather } from '../constants/service';
 
@@ -57,6 +57,7 @@ export default class WeatherComponent extends React.Component<Props, State>{
     render(){
         const {weather, loading} = this.state;
         return<React.Fragment>
+            
             {!loading ? 
                 <SingleWeather item={weather.weather[0]} main={weather.main}/>
                 :

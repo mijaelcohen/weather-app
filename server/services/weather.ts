@@ -8,14 +8,15 @@ class WeatherService {
         forecast : "/forecast",
         weather: "/weather"
     }
-    apiKey = { 
-        "appid" : config.apiKeys.weather
+    params = { 
+        appid : config.apiKeys.weather,
+        units: 'metric'
     }
     constructor(){}
     getCurrentWeather(city: string) {
         return axios.get<Weather>(this.baseUrl.concat(this.endpoints.weather),{
             params: {
-                ...this.apiKey,
+                ...this.params,
                 q: city
             }
         });
@@ -23,7 +24,7 @@ class WeatherService {
     getForecast(city: string) {
         return axios.get<Forecast>(this.baseUrl.concat(this.endpoints.forecast),{
             params: {
-                ...this.apiKey,
+                ...this.params,
                 q: city
             }
         });

@@ -11,7 +11,6 @@ class WeatherService {
     params = { 
         appid : config.apiKeys.weather,
         units: 'metric',
-        lang: 'es'
     }
     constructor(){}
     getCurrentWeather(city: string) {

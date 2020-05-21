@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "npm run dev",
-    "dev": "nodemon server/server.ts & webpack-cli -w --mode development",
+    "dev": "nodemon server/server.ts & webpack-cli -w --mode development"
   },
   "author": "Mijail Cohen",
   "license": "ISC",
